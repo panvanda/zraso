@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Žraso u Waltrovky</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="theme-color" content="#1f6f4a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Layout: sticky header with day tabs + filters, then one column of restaurant cards (two on wide screens). */
+  --bg: #f1f3f0;
+  --surface: #ffffff;
+  --ink: #18201b;
+  --muted: #5d6a62;
+  --line: #d9dfda;
+  --accent: #1f6f4a;
+  --accent-ink: #ffffff;
+  --price: #8a5a00;
+  --veg: #3d7d1e;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111613; --surface: #1a211d; --ink: #e8ede9; --muted: #9aa8a0;
+    --line: #2c3631; --accent: #4cc48a; --accent-ink: #0d1a13; --price: #f0b84a; --veg: #8fd16a;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111613; --surface: #1a211d; --ink: #e8ede9; --muted: #9aa8a0;
+  --line: #2c3631; --accent: #4cc48a; --accent-ink: #0d1a13; --price: #f0b84a; --veg: #8fd16a;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.45 var(--body); }
+header { position: sticky; top: 0; z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); padding: 12px 16px 10px; display: grid; gap: 10px; }
+.top { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+h1 { font: 800 1.45rem/1.1 var(--display); margin: 0; letter-spacing: -0.01em; text-wrap: balance; }
+h1 span { color: var(--accent); }
+.meta { font-size: .8rem; color: var(--muted); }
+.days { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
+.days button { flex: 1 0 auto; min-width: 58px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 10px; padding: 6px 8px; font: 700 .9rem var(--body); cursor: pointer; display: grid; line-height: 1.15; }
+.days button small { font-weight: 400; color: var(--muted); font-size: .72rem; }
+.days button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.days button[aria-pressed="true"] small { color: inherit; opacity: .85; }
+.days button.today:not([aria-pressed="true"]) { border-color: var(--accent); }
+.filters { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+.chip { border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 999px; padding: 5px 12px; font: 400 .85rem var(--body); cursor: pointer; }
+.chip[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); font-weight: 700; }
+#q { flex: 1 1 140px; min-width: 120px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 999px; padding: 6px 12px; font: .9rem var(--body); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+main { padding: 14px 16px 40px; max-width: 1100px; margin: 0 auto; display: grid; gap: 12px; }
+.summary { font-size: .88rem; color: var(--muted); }
+.summary b { color: var(--ink); }
+.grid { display: grid; gap: 12px; grid-template-columns: 1fr; align-items: start; }
+@media (min-width: 760px) { .grid { grid-template-columns: 1fr 1fr; } }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; display: grid; gap: 8px; }
+.card.pinned { border-color: var(--accent); }
+.card.empty { opacity: .7; }
+.head { display: flex; justify-content: space-between; gap: 8px; align-items: start; }
+.head h2 { font: 700 1.1rem/1.2 var(--display); margin: 0; text-wrap: balance; }
+.sub { font-size: .78rem; color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 10px; }
+.tag { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--accent); }
+.pin { border: 0; background: none; font-size: 1.25rem; line-height: 1; cursor: pointer; color: var(--muted); padding: 2px 4px; }
+.pin[aria-pressed="true"] { color: var(--price); }
+ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 7px; }
+li { display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; padding-top: 7px; border-top: 1px dashed var(--line); }
+li:first-child { border-top: 0; padding-top: 0; }
+.cat { grid-column: 1 / -1; font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+.cat .v { color: var(--veg); margin-left: 6px; }
+.dish { font-size: .93rem; }
+.dish mark { background: color-mix(in srgb, var(--price) 25%, transparent); color: inherit; border-radius: 3px; }
+.alg { font-size: .72rem; color: var(--muted); white-space: nowrap; }
+.price { font-weight: 700; color: var(--price); font-variant-numeric: tabular-nums; white-space: nowrap; text-align: right; }
+.nomenu { font-size: .88rem; color: var(--muted); font-style: italic; }
+.foot { font-size: .75rem; color: var(--muted); display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.foot a { color: var(--accent); }
+.err { padding: 16px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+@media (prefers-reduced-motion: no-preference) { .days button, .chip { transition: background .15s, border-color .15s; } }
+</style>
+</head>
+<body>
+<header>
+  <div class="top">
+    <h1>Žraso <span>u Waltrovky</span></h1>
+    <div class="meta" id="meta">Načítám…</div>
+  </div>
+  <nav class="days" id="days" aria-label="Den v týdnu"></nav>
+  <div class="filters">
+    <button class="chip" id="f-all" aria-pressed="true">Vše</button>
+    <button class="chip" id="f-walt" aria-pressed="false">Waltrovka</button>
+    <button class="chip" id="f-okoli" aria-pressed="false">Okolí</button>
+    <button class="chip" id="f-veg" aria-pressed="false">🌱 Bez masa</button>
+    <label for="q" class="meta" style="position:absolute;left:-9999px">Hledat jídlo</label>
+    <input id="q" type="search" placeholder="Hledat (řízek, curry…)" autocomplete="off">
+  </div>
+</header>
+<main>
+  <div class="summary" id="summary"></div>
+  <div class="grid" id="grid"></div>
+</main>
+<script>
+(function () {
+  const DOW = ["Ne", "Po", "Út", "St", "Čt", "Pá", "So"];
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  };
+  const state = { data: null, day: null, zone: "all", veg: false, q: "", pins: store.get("zraso-pins", []) };
+  const $ = (id) => document.getElementById(id);
+  const iso = (d) => d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  // All-caps menu lines (La Fresca, Na Farkáně) read badly on a phone: turn them into sentence case.
+  const pretty = (s) => {
+    const letters = s.replace(/[^A-Za-zÀ-ž]/g, "");
+    const caps = letters.replace(/[^A-ZÀ-ÞĀ-Ž]/g, "").length;
+    if (letters.length && caps / letters.length > 0.6) {
+      const low = s.toLocaleLowerCase("cs");
+      return low.replace(/(^|[·:]\s*)(\p{L})/gu, (m, a, b) => a + b.toLocaleUpperCase("cs"));
+    }
+    return s;
+  };
+  const norm = (s) => s.toLocaleLowerCase("cs").normalize("NFD").replace(/[̀-ͯ]/g, "");
+
+  function weekDays() {
+    const start = new Date(state.data.weekStart + "T12:00:00");
+    return [0, 1, 2, 3, 4].map((i) => { const d = new Date(start); d.setDate(start.getDate() + i); return d; });
+  }
+
+  function renderDays() {
+    const today = iso(new Date());
+    $("days").innerHTML = weekDays().map((d) => {
+      const k = iso(d);
+      return '<button type="button" data-day="' + k + '" aria-pressed="' + (k === state.day) + '" class="' + (k === today ? "today" : "") + '">' +
+        DOW[d.getDay()] + "<small>" + d.getDate() + ". " + (d.getMonth() + 1) + ".</small></button>";
+    }).join("");
+  }
+
+  function itemsFor(r, day) {
+    const list = r.days && r.days[day];
+    if (!list || !list.length) return null;
+    return list.concat(r.everyday || []);
+  }
+
+  function render() {
+    const d = state.data, day = state.day, nq = norm(state.q.trim());
+    let withMenu = 0, cheapest = null;
+    const cards = d.restaurants
+      .filter((r) => state.zone === "all" || r.zone === state.zone)
+      .map((r) => {
+        let items = itemsFor(r, day);
+        const had = !!items;
+        if (items) {
+          if (state.veg) items = items.filter((i) => i.veg);
+          if (nq) items = items.filter((i) => norm(i.name).includes(nq));
+        }
+        return { r, items, had };
+      })
+      .filter((c) => !(state.veg || nq) || (c.items && c.items.length))
+      .sort((a, b) => {
+        const pa = state.pins.includes(a.r.id) ? 0 : 1, pb = state.pins.includes(b.r.id) ? 0 : 1;
+        if (pa !== pb) return pa - pb;
+        return (b.had ? 1 : 0) - (a.had ? 1 : 0);
+      });
+
+    cards.forEach((c) => {
+      if (!c.had) return;
+      withMenu++;
+      (c.items || []).forEach((i) => {
+        if (i.price && /hlavn|menu|hotovka|speci/i.test(i.cat) && (!cheapest || i.price < cheapest.price)) cheapest = { price: i.price, r: c.r.name, name: i.name };
+      });
+    });
+
+    $("summary").innerHTML = cards.length
+      ? "<b>" + withMenu + "</b> z " + cards.length + " podniků má na tento den menu" +
+        (cheapest ? " · nejlevnější hlavní: <b>" + cheapest.price + " Kč</b> (" + esc(cheapest.r) + ")" : "")
+      : "Nic neodpovídá filtru.";
+
+    $("grid").innerHTML = cards.map(({ r, items, had }) => {
+      const pinned = state.pins.includes(r.id);
+      const body = !had
+        ? '<p class="nomenu">Pro tento den menu zatím nezveřejnili.</p>'
+        : "<ul>" + items.map((i) => {
+            let name = esc(pretty(i.name));
+            if (nq) {
+              const plain = pretty(i.name), idx = norm(plain).indexOf(nq);
+              if (idx >= 0) name = esc(plain.slice(0, idx)) + "<mark>" + esc(plain.slice(idx, idx + nq.length)) + "</mark>" + esc(plain.slice(idx + nq.length));
+            }
+            return '<li><span class="cat">' + esc(i.cat) + (i.veg ? '<span class="v">🌱</span>' : "") + "</span>" +
+              '<span class="dish">' + name + (i.alg ? ' <span class="alg">(' + esc(i.alg) + ")</span>" : "") + "</span>" +
+              '<span class="price">' + (i.price ? i.price + " Kč" : "") + "</span></li>";
+          }).join("") + "</ul>";
+      return '<article class="card' + (pinned ? " pinned" : "") + (had ? "" : " empty") + '">' +
+        '<div class="head"><div><div class="tag">' + (r.zone === "waltrovka" ? "Waltrovka" : "Okolí") + "</div><h2>" + esc(r.name) + "</h2>" +
+        '<div class="sub"><span>' + esc(r.place) + "</span>" + (r.hours ? "<span>" + esc(r.hours) + "</span>" : "") + "</div></div>" +
+        '<button class="pin" type="button" data-pin="' + r.id + '" aria-pressed="' + pinned + '" aria-label="Připnout ' + esc(r.name) + ' nahoru">' + (pinned ? "★" : "☆") + "</button></div>" +
+        body +
+        '<div class="foot"><span>' + esc(r.note || "") + '</span><a href="' + esc(r.url) + '">Zdroj ↗</a></div></article>';
+    }).join("");
+  }
+
+  function setZone(z) {
+    state.zone = z;
+    $("f-all").setAttribute("aria-pressed", z === "all");
+    $("f-walt").setAttribute("aria-pressed", z === "waltrovka");
+    $("f-okoli").setAttribute("aria-pressed", z === "okoli");
+    render();
+  }
+
+  $("days").addEventListener("click", (e) => {
+    const b = e.target.closest("button[data-day]"); if (!b) return;
+    state.day = b.dataset.day; renderDays(); render();
+  });
+  $("f-all").onclick = () => setZone("all");
+  $("f-walt").onclick = () => setZone("waltrovka");
+  $("f-okoli").onclick = () => setZone("okoli");
+  $("f-veg").onclick = () => { state.veg = !state.veg; $("f-veg").setAttribute("aria-pressed", state.veg); render(); };
+  $("q").addEventListener("input", (e) => { state.q = e.target.value; render(); });
+  $("grid").addEventListener("click", (e) => {
+    const b = e.target.closest("button[data-pin]"); if (!b) return;
+    const id = b.dataset.pin;
+    state.pins = state.pins.includes(id) ? state.pins.filter((x) => x !== id) : state.pins.concat(id);
+    store.set("zraso-pins", state.pins); render();
+  });
+
+  fetch("menus.json", { cache: "no-store" })
+    .then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then((data) => {
+      state.data = data;
+      const keys = weekDays().map(iso), today = iso(new Date());
+      // Today if it is in the loaded week; otherwise the first weekday that has any menu.
+      state.day = keys.includes(today) ? today
+        : keys.find((k) => data.restaurants.some((r) => r.days && r.days[k] && r.days[k].length)) || keys[0];
+      const u = new Date(data.updated);
+      $("meta").textContent = "Aktualizováno " + DOW[u.getDay()] + " " + u.getDate() + ". " + (u.getMonth() + 1) + ". " +
+        String(u.getHours()).padStart(2, "0") + ":" + String(u.getMinutes()).padStart(2, "0");
+      renderDays(); render();
+    })
+    .catch(() => {
+      $("meta").textContent = "";
+      $("grid").innerHTML = '<div class="err">Menu se nepodařilo načíst. Zkus stránku obnovit.</div>';
+    });
+})();
+</script>
+</body>
+</html>

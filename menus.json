@@ -1,0 +1,741 @@
+{
+  "updated": "2026-11-10T12:37:00+01:00",
+  "weekStart": "2026-11-09",
+  "restaurants": [
+    {
+      "id": "lafresca",
+      "name": "La Fresca – Veolia",
+      "place": "Budova Veolia, Radlická",
+      "zone": "waltrovka",
+      "hours": "obědy dle provozu",
+      "url": "https://www.cantina-lafresca.cz/menu/veolia",
+      "note": "Ceny na webu neuvádí. Týdenní menu.",
+      "everyday": [
+        {
+          "cat": "Wok/Pasta",
+          "name": "ARRABIATTA S PANCETTOU · CARBONARA · RAGU BOLOGNESE · KUŘECÍ SUPREME S HOUBOVÝM RAGU",
+          "alg": "1,3,7,9"
+        }
+      ],
+      "days": {
+        "2026-11-09": [
+          {
+            "cat": "Polévka A",
+            "name": "HOVĚZÍ VÝVAR, MASO, KOŘENOVÁ ZELENINA, TĚSTOVINA",
+            "alg": "1,3,9"
+          },
+          {
+            "cat": "Polévka B",
+            "name": "MINESTRONE SE ZELENINOU A PESTEM, ZAKYSANÁ SMETANA",
+            "alg": "7,9",
+            "veg": true
+          },
+          {
+            "cat": "Bez masa",
+            "name": "JAMBALAYA SE ZELENINOU, JASMÍNOVÁ RÝŽE, KORIANDR",
+            "alg": "9,12",
+            "veg": true
+          },
+          {
+            "cat": "Hotovka A",
+            "name": "ZBOJNICKÁ VEPŘOVÁ ROLÁDA SE SLANINOU A ČESNEKEM, KRÉMOVÝ ŠPENÁT, HOUSKOVÉ KNEDLÍKY",
+            "alg": "1,3,7,9"
+          },
+          {
+            "cat": "Hotovka B",
+            "name": "MAMINČINO PEČENÉ KUŘE, TĚSTOVINY, HOUBY, TYMIÁNOVÁ ŠŤÁVA",
+            "alg": "1,3,7,9,10"
+          },
+          {
+            "cat": "Teplý bufet",
+            "name": "KUŘE SWEET CHILLI S OŘÍŠKY",
+            "alg": "3,4,5,6,11"
+          }
+        ],
+        "2026-11-10": [
+          {
+            "cat": "Polévka A",
+            "name": "HOUBOVÁ POLÉVKA, KROUPY, HOUBY, TYMIÁN",
+            "alg": "1,9",
+            "veg": true
+          },
+          {
+            "cat": "Polévka B",
+            "name": "HRACHOVÁ POLÉVKA S UZENÝM MASEM",
+            "alg": "7,9"
+          },
+          {
+            "cat": "Bez masa",
+            "name": "DÝŇOVÁ KORMA SE ZELENINOU, KUS KUS",
+            "alg": "1,7,9,12",
+            "veg": true
+          },
+          {
+            "cat": "Hotovka A",
+            "name": "PLNĚNÝ PAPRIKOVÝ LUSK MLETÝM VEPŘOVÝM A HOVĚZÍM MASEM, RAJSKÁ OMÁČKA, HOUSKOVÉ KNEDLÍKY / DUŠENÁ RÝŽE",
+            "alg": "1,3,7,9,12"
+          },
+          {
+            "cat": "Hotovka B",
+            "name": "PEČENÁ ŠTIKA SE ŠPENÁTEM, OPEČENÉ BRAMBORY, SMETANOVÁ OMÁČKA S KOPREM"
+          },
+          {
+            "cat": "Teplý bufet",
+            "name": "BURRITO S TRHANÝM VEPŘOVÝM MASEM, RAJČATY A CHEDDAREM",
+            "alg": "1,7"
+          },
+          {
+            "cat": "Speciál",
+            "name": "ANGLICKÝ ROASTBEEF, HRANOLKY, DOMÁCÍ TATARKA, SALÁTEK",
+            "alg": "3,9,10"
+          }
+        ],
+        "2026-11-11": [
+          {
+            "cat": "Polévka A",
+            "name": "ZELENINOVÝ VÝVAR S KRUPICÍ A VEJCEM, STROUHANÁ ZELENINA",
+            "alg": "3,7,9",
+            "veg": true
+          },
+          {
+            "cat": "Polévka B",
+            "name": "HUSÍ KALDOUN, DRŮBKY, STROUHANÁ ZELENINA, FLEKY, JÁTROVÉ KNEDLÍČKY",
+            "alg": "1,3,7,9,12"
+          },
+          {
+            "cat": "Bez masa",
+            "name": "TEPLÝ SALÁT S PEČENOU ŘEPOU, ČERNOU ČOČKOU BELUGA, KOŘENOVOU ZELENINOU, OŘECHY A JABLKEM",
+            "alg": "8,9",
+            "veg": true
+          },
+          {
+            "cat": "Hotovka A",
+            "name": "ZVĚŘINOVÝ GULÁŠ, STROUHANÝ KŘEN, ŠPECLE",
+            "alg": "1,3,7,9,12"
+          },
+          {
+            "cat": "Hotovka B",
+            "name": "ŠOULET S PEČENOU KRKOVICÍ, KYSELÁ OKURKA",
+            "alg": "1,7,9,10,12"
+          },
+          {
+            "cat": "Teplý bufet",
+            "name": "ŽLUTÉ CURRY S KUŘETEM A KOKOSOVÝM MLÉKEM"
+          },
+          {
+            "cat": "Speciál",
+            "name": "ANGLICKÝ ROASTBEEF, HRANOLKY, DOMÁCÍ TATARKA, SALÁTEK",
+            "alg": "3,9,12"
+          }
+        ],
+        "2026-11-12": [
+          {
+            "cat": "Polévka A",
+            "name": "SLEPIČÍ VÝVAR, MASO, ZELENINA, RŮŽIČKOVÁ KAPUSTA, BULGUR",
+            "alg": "1,9"
+          },
+          {
+            "cat": "Polévka B",
+            "name": "DÝŇOVÝ KRÉM S JABLKY, DÝŇOVÁ SEMÍNKA A OLEJ",
+            "alg": "7,9",
+            "veg": true
+          },
+          {
+            "cat": "Bez masa",
+            "name": "CIZRNOVÉ PLACKY SE ŠPENÁTEM, COTTAGE, QUINOOU, PETRŽELOVÉ BRAMBORY, LISTOVÝ SALÁTEK",
+            "alg": "1,3,7,12",
+            "veg": true
+          },
+          {
+            "cat": "Hotovka A",
+            "name": "STRAPAČKY S UZENÝM MASEM A KYSANÝM ZELÍM, SMAŽENÁ CIBULKA",
+            "alg": "1,3,7,9,10,12"
+          },
+          {
+            "cat": "Hotovka B",
+            "name": "PEČENÉ PIKANTNÍ KUŘECÍ PALIČKY, COLESLAW SALÁT, CHLÉB",
+            "alg": "1,3,7,9,10,12"
+          },
+          {
+            "cat": "Teplý bufet",
+            "name": "KUŘECÍ ŠPALÍKY S OMÁČKOU Z PEČENÉHO ČESNEKU, FAZOLKY SE SLANINOU"
+          },
+          {
+            "cat": "Speciál",
+            "name": "ANGLICKÝ ROASTBEEF, HRANOLKY, DOMÁCÍ TATARKA, SALÁTEK",
+            "alg": "3,9,10"
+          }
+        ],
+        "2026-11-13": [
+          {
+            "cat": "Polévka A",
+            "name": "HOVĚZÍ VÝVAR, MASO, FRITÁTOVÉ NUDLE, ZELENINA",
+            "alg": "1,3,9"
+          },
+          {
+            "cat": "Polévka B",
+            "name": "KULAJDA S HOUBAMI A BRAMBOREM, VEJCE, KOPR",
+            "veg": true
+          },
+          {
+            "cat": "Bez masa",
+            "name": "BRAMBOROVÉ GNOCCHI S LESNÍMI HOUBAMI, ŠPENÁTEM A SMETANOVOU OMÁČKOU",
+            "alg": "1,3,7",
+            "veg": true
+          },
+          {
+            "cat": "Hotovka A",
+            "name": "HOVĚZÍ MASO, ŠTĚPÁNSKÁ OMÁČKA, HOUSKOVÉ KNEDLÍKY"
+          },
+          {
+            "cat": "Hotovka B",
+            "name": "ZAPEČENÉ KRŮTÍ MASO VE SMETANOVÝCH BRAMBORÁCH",
+            "alg": "1,3,7,9,10"
+          },
+          {
+            "cat": "Teplý bufet",
+            "name": "VEPŘOVÁ PANENKA S OMÁČKOU ZE ZELENÉHO PEPŘE",
+            "alg": "7,10"
+          }
+        ]
+      }
+    },
+    {
+      "id": "salty",
+      "name": "Salty J's",
+      "place": "Dynamica, Kačírkova 982/4",
+      "zone": "waltrovka",
+      "hours": "obědy 11:00–15:00",
+      "url": "https://saltyjs.cz/obedove-menu/",
+      "note": "Menu je obrázek v Canvě, text přes lunch.marketlens.cz. Jen dnešní nabídka.",
+      "days": {
+        "2026-11-10": [
+          {
+            "cat": "Polévka",
+            "name": "Kapustová polévka s uzeninou",
+            "price": 49
+          },
+          {
+            "cat": "Polévka",
+            "name": "Drůbeží vývar se zeleninou a játrovou rýží",
+            "price": 49
+          },
+          {
+            "cat": "Hlavní",
+            "name": "Filírované kuřecí prso se zeleninovým couscousem a demi glace omáčkou, polníček",
+            "price": 185
+          },
+          {
+            "cat": "Hlavní",
+            "name": "Švédské masové koule s brusinkami a jemnou omáčkou, hranolky",
+            "price": 179
+          },
+          {
+            "cat": "Hlavní",
+            "name": "Grilovaný hermelín s restovanou zeleninou a naší focaccíou",
+            "price": 169,
+            "veg": true
+          },
+          {
+            "cat": "Hlavní",
+            "name": "Grilovaný candát s buerre blanc omáčkou a restovanou zeleninou",
+            "price": 239
+          }
+        ]
+      }
+    },
+    {
+      "id": "turnovska",
+      "name": "Turnovská pivnice Waltrovka",
+      "place": "Walterovo nám. 329/2",
+      "zone": "waltrovka",
+      "hours": "polední menu",
+      "url": "https://www.menicka.cz/8964-turnovska-pivnice-waltrovka.html",
+      "note": "Menu na více dní dopředu (meníčka.cz).",
+      "days": {
+        "2026-11-10": [
+          {
+            "cat": "Polévka",
+            "name": "Minestrone se sýrem grana-padano",
+            "price": 79,
+            "veg": true
+          },
+          {
+            "cat": "Polévka",
+            "name": "Hovězí vývar se zeleninou a játrovou rýží",
+            "price": 69
+          },
+          {
+            "cat": "Hlavní",
+            "name": "150g Treska v bylinkovém těstíčku s bramborovou kaší, salátek coleslaw",
+            "price": 215
+          },
+          {
+            "cat": "Hlavní",
+            "name": "150g Hovězí rajská pečeně s houskovým knedlíkem",
+            "price": 235
+          },
+          {
+            "cat": "Hlavní",
+            "name": "300g Naše bramborové noky s vepřovou panenkou, sušená rajčata, grilovaná cuketa, grana padano",
+            "price": 195
+          },
+          {
+            "cat": "Hlavní",
+            "name": "1/4 Konfitované husy s červeným a bílým zelím, bramborový, houskový knedlík",
+            "price": 595
+          },
+          {
+            "cat": "Dezert",
+            "name": "3ks Naše lívance s jablky a zakysanou smetanou sypané skořicovým cukrem",
+            "price": 105,
+            "veg": true
+          }
+        ],
+        "2026-11-11": [],
+        "2026-11-12": [
+          {
+            "cat": "Polévka",
+            "name": "Polévka z drcených rajčat se sýrem grana-padano",
+            "price": 79,
+            "veg": true
+          },
+          {
+            "cat": "Polévka",
+            "name": "Hovězí vývar se zeleninou a játrovou rýží",
+            "price": 69
+          },
+          {
+            "cat": "Hlavní",
+            "name": "150g Pikantní buřtguláš s chlebem od našich pekařů",
+            "price": 175
+          },
+          {
+            "cat": "Hlavní",
+            "name": "150g Savojský vepřový řízek s máslovou bramborovou kaší, kyselá okurka",
+            "price": 215
+          },
+          {
+            "cat": "Hlavní",
+            "name": "150g Kuřecí steak s rajčaty zapečený mozzarellou, šťouchané brambory, bazalková omáčka",
+            "price": 215
+          },
+          {
+            "cat": "Hlavní",
+            "name": "1/4 Konfitované husy s červeným a bílým zelím, bramborový, houskový knedlík",
+            "price": 595
+          },
+          {
+            "cat": "Dezert",
+            "name": "3ks Naše lívance s jablky a zakysanou smetanou sypané skořicovým cukrem",
+            "price": 105,
+            "veg": true
+          }
+        ],
+        "2026-11-13": [
+          {
+            "cat": "Polévka",
+            "name": "Fazolová polévka s uzeninou",
+            "price": 79
+          },
+          {
+            "cat": "Polévka",
+            "name": "Hovězí vývar se zeleninou a játrovou rýží",
+            "price": 69
+          },
+          {
+            "cat": "Hlavní",
+            "name": "150g Hovězí burger s plátky choriza a sýrem gouda, smažené bramborové hranolky, majonéza",
+            "price": 285
+          },
+          {
+            "cat": "Hlavní",
+            "name": "300g Salát s čerstvou zeleninou a kuřecími stripsy v pivním těstíčku, chipotle dresink",
+            "price": 235
+          },
+          {
+            "cat": "Hlavní",
+            "name": "200g Steak z vepřové krkovičky s maďarskou omáčkou a šťouchaným bramborem",
+            "price": 195
+          },
+          {
+            "cat": "Hlavní",
+            "name": "1/4 Konfitované husy s červeným a bílým zelím, bramborový, houskový knedlík",
+            "price": 595
+          },
+          {
+            "cat": "Dezert",
+            "name": "3ks Naše lívance s jablky a zakysanou smetanou sypané skořicovým cukrem",
+            "price": 105,
+            "veg": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "puzzle",
+      "name": "Puzzle Salads",
+      "place": "Waltrovka",
+      "zone": "waltrovka",
+      "hours": "",
+      "url": "https://www.waltrovka-work.cz/cs/sluzby/puzzle-salads",
+      "note": "Mimo menu stálá nabídka salátů.",
+      "days": {
+        "2026-11-10": [
+          {
+            "cat": "Polévka",
+            "name": "Pikantní zelňačka s klobásou a bramborem (malá 45 / velká 65 Kč)",
+            "price": 45
+          },
+          {
+            "cat": "Polévka",
+            "name": "Indická fazolová polévka s koriandrem (malá 35 / velká 55 Kč)",
+            "price": 35,
+            "veg": true
+          },
+          {
+            "cat": "Speciál",
+            "name": "Burrito s kuřecím masem, cheddarem, kukuřicí, červenou cibulí, fazolemi, rýží basmati, malým salátkem a zakysanou smetanou",
+            "price": 179
+          },
+          {
+            "cat": "Dezert",
+            "name": "Tiramisu",
+            "price": 89,
+            "veg": true
+          },
+          {
+            "cat": "Dezert",
+            "name": "Švestkový cheesecake se skořicí",
+            "price": 89,
+            "veg": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "automat",
+      "name": "Automat Aviatica",
+      "place": "Aviatica",
+      "zone": "waltrovka",
+      "hours": "",
+      "url": "https://automataviatica.cz/",
+      "note": "Jen dnešní nabídka.",
+      "days": {
+        "2026-11-10": [
+          {
+            "cat": "Polévka",
+            "name": "Hovězí vývar se zeleninou a masem",
+            "price": 53
+          },
+          {
+            "cat": "Polévka",
+            "name": "Staročeská kulajda",
+            "price": 53,
+            "veg": true
+          },
+          {
+            "cat": "Hlavní",
+            "name": "Moravský vrabec, dušené zelí a bramborové knedlíky",
+            "price": 179
+          },
+          {
+            "cat": "Hlavní",
+            "name": "Penne pomodoro s mozzarellou",
+            "price": 169,
+            "veg": true
+          },
+          {
+            "cat": "Hlavní",
+            "name": "Kuřecí holandský řízek, nakládaná okurka, bramborová kaše s máslem",
+            "price": 189
+          },
+          {
+            "cat": "Hlavní",
+            "name": "Pomalu dušené zvěřinové ragú na červeném víně s vaječnými špeclemi",
+            "price": 215
+          }
+        ]
+      }
+    },
+    {
+      "id": "blackroyal",
+      "name": "Black Royal",
+      "place": "Radlická 365/154 (Nová Waltrovka)",
+      "zone": "waltrovka",
+      "hours": "Po–Pá 11:00–16:30",
+      "url": "https://black-royal.choiceqr.com/cz/section:poledni-menu",
+      "note": "Asijská kuchyně. Jen dnešní nabídka.",
+      "days": {
+        "2026-11-10": [
+          {
+            "cat": "Polévka",
+            "name": "Pikantní kuřecí polévka s nudlemi",
+            "price": 49
+          },
+          {
+            "cat": "Hlavní",
+            "name": "Restované udon nudle s krevetami v červené kari omáčce",
+            "price": 229
+          },
+          {
+            "cat": "Hlavní",
+            "name": "Kuřecí kousky v domácí Teriyaki omáčce s jasmínovou rýží",
+            "price": 199
+          },
+          {
+            "cat": "Hlavní",
+            "name": "Křupavá vepřová krkovice v Gochujang omáčce s jasmínovou rýží",
+            "price": 259
+          },
+          {
+            "cat": "Hlavní",
+            "name": "Bun Vit Nam Bo s kachním masem",
+            "price": 189
+          }
+        ]
+      }
+    },
+    {
+      "id": "kotelna",
+      "name": "Kotelna Park",
+      "place": "Kotelna Park",
+      "zone": "waltrovka",
+      "hours": "",
+      "url": "https://www.mbfood.cz/restaurace/kotelna-park/tydenni-menu/",
+      "note": "Web uvádí týdenní menu bez rozpisu dnů.",
+      "days": {
+        "2026-11-10": [
+          {
+            "cat": "Polévka",
+            "name": "Zeleninový krém",
+            "price": 49,
+            "veg": true
+          },
+          {
+            "cat": "Hlavní",
+            "name": "Lasagne s hovězím masem, rajčaty, smetanou a sýrem",
+            "price": 159
+          },
+          {
+            "cat": "Hlavní",
+            "name": "Kuřecí křídla v medu a zázvoru, rýže",
+            "price": 155
+          },
+          {
+            "cat": "Hlavní",
+            "name": "Pečená brambora gratinovaná sýrem, kukuřičný klas, rajče a zakysaná smetana",
+            "price": 149,
+            "veg": true
+          },
+          {
+            "cat": "Hlavní",
+            "name": "Vepřová panenka na rozmarýnu s omáčkou demi-glace a šťouchanými bramborami",
+            "price": 179
+          },
+          {
+            "cat": "Hlavní",
+            "name": "Brokolicový salát s ředkvičkami, mrkví, jablky a zakysanou smetanou",
+            "price": 155,
+            "veg": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "nafarkane",
+      "name": "Na Farkáně",
+      "place": "Radlice",
+      "zone": "okoli",
+      "hours": "",
+      "url": "https://www.nafarkane.cz/",
+      "note": "Jen dnešní nabídka.",
+      "days": {
+        "2026-11-10": [
+          {
+            "cat": "Polévka",
+            "name": "ZELŇAČKA s davelskou klobásou",
+            "price": 59
+          },
+          {
+            "cat": "Hlavní",
+            "name": "GRILOVANÉ KUŘECÍ PRSO V ČERSTVÝCH BYLINKÁCH, hranolky",
+            "price": 189
+          },
+          {
+            "cat": "Hlavní",
+            "name": "JITRNICE, zelí, vařený brambor",
+            "price": 189
+          },
+          {
+            "cat": "Hlavní",
+            "name": "250g ŘÍZEK Z VEPŘOVÉHO HŘBETU, bramborový salát",
+            "price": 189
+          },
+          {
+            "cat": "Hlavní",
+            "name": "SRBSKÉ RIZOTO SE SÝREM, kyselá okurka",
+            "price": 179
+          },
+          {
+            "cat": "Hlavní",
+            "name": "JELENÍ GULÁŠ, karlovarský knedlík",
+            "price": 219
+          },
+          {
+            "cat": "Dezert",
+            "name": "DOMÁCÍ LÍVANEČKY, povidlová omáčka, med, perník",
+            "price": 135,
+            "veg": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "bucka",
+      "name": "U Bůčka",
+      "place": "Na Vidouli 1/1, Jinonice",
+      "zone": "okoli",
+      "hours": "polední nabídka 11:00–15:00",
+      "url": "https://www.menicka.cz/2302-restaurace-u-bucka.html",
+      "note": "MENU 1–3 = polévka + hlavní za 220 Kč.",
+      "days": {
+        "2026-11-10": [
+          {
+            "cat": "Polévka",
+            "name": "Hovězí vývar s masem a nudlemi",
+            "price": 65
+          },
+          {
+            "cat": "Polévka",
+            "name": "Bramborová s houbami",
+            "price": 65,
+            "veg": true
+          },
+          {
+            "cat": "Polévka",
+            "name": "Fazolová s uzeným masem",
+            "price": 65
+          },
+          {
+            "cat": "Menu",
+            "name": "MENU 1: Vepřový „Katův šleh“, hranolky",
+            "price": 220
+          },
+          {
+            "cat": "Menu",
+            "name": "MENU 2: Znojemská hovězí pečeně, jasmínová rýže",
+            "price": 220
+          },
+          {
+            "cat": "Menu",
+            "name": "MENU 3: Smažený karbanátek, bramborová kaše, kys. okurka",
+            "price": 220
+          },
+          {
+            "cat": "Speciál",
+            "name": "Filet z lososa pečený na másle, vařený brambor, salátek",
+            "price": 320
+          },
+          {
+            "cat": "Speciál",
+            "name": "Kuřecí prsíčko s hříbkovo-smetanovou omáčkou, hranolky",
+            "price": 285
+          },
+          {
+            "cat": "Speciál",
+            "name": "Krémové parmazánové risotto s gril. kozím sýrem, sušenými rajčaty, cuketou a rukolou",
+            "price": 265,
+            "veg": true
+          },
+          {
+            "cat": "Hlavní",
+            "name": "Španělský ptáček, jasmínová rýže",
+            "price": 280
+          },
+          {
+            "cat": "Hlavní",
+            "name": "Svíčková na smetaně, houskový knedlík, brusinkový terč",
+            "price": 260
+          },
+          {
+            "cat": "Hlavní",
+            "name": "Lasagne po boloňsku sypané parmazánem",
+            "price": 195
+          },
+          {
+            "cat": "Hlavní",
+            "name": "Smažený sýr gouda, vařený brambor, tat. omáčka",
+            "price": 220,
+            "veg": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "majeru",
+      "name": "U Majerů",
+      "place": "U Jinonického rybníčka 602",
+      "zone": "okoli",
+      "hours": "polední nabídka 11:00–14:00",
+      "url": "https://www.dnesniobed.cz/PoledniNabidkyDO/poledniNabidky.php?kategorie=poledniNabidky&lokal=Jinonice",
+      "note": "MENU 1 = malá polévka + hlavní.",
+      "days": {
+        "2026-11-10": [
+          {
+            "cat": "Polévka",
+            "name": "Dršťková",
+            "price": 50
+          },
+          {
+            "cat": "Menu",
+            "name": "MENU 1: Dršťková + Zapečené těstoviny s uzeninou, okurka",
+            "price": 193
+          },
+          {
+            "cat": "Hlavní",
+            "name": "Zapečené těstoviny s uzeninou, okurka",
+            "price": 168
+          },
+          {
+            "cat": "Hlavní",
+            "name": "Segedínský guláš, houskový knedlík",
+            "price": 169
+          },
+          {
+            "cat": "Hlavní",
+            "name": "Vepřová plec na mrkvi, vařený brambor",
+            "price": 168
+          },
+          {
+            "cat": "Hlavní",
+            "name": "Vepřová plec na žampiónech, rýže / houskový knedlík",
+            "price": 168
+          },
+          {
+            "cat": "Hlavní",
+            "name": "Přírodní kuřecí kapsa (šunka, sýr), opečený brambor",
+            "price": 190
+          },
+          {
+            "cat": "Hlavní",
+            "name": "Pikantní vepřová směs, rýže",
+            "price": 170
+          },
+          {
+            "cat": "Hlavní",
+            "name": "Smažený hermelín",
+            "price": 100,
+            "veg": true
+          },
+          {
+            "cat": "Hlavní",
+            "name": "Smažený sýr (eidam)",
+            "price": 100,
+            "veg": true
+          }
+        ]
+      }
+    }
+  ]
+}
