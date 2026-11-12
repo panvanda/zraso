@@ -230,8 +230,11 @@ li.soup:hover, li.vegdish:hover { filter: brightness(.97) saturate(1.15); }
     return '<span class="logo" aria-hidden="true" style="background:' + LOGO_COLORS[h % LOGO_COLORS.length] + '">' + esc(ini.toUpperCase()) + "</span>";
   }
 
+  // The week always follows today's date (not the data file): Mon–Fri of this week, on Sat/Sun the coming week.
   function weekDays() {
-    const start = new Date(state.data.weekStart + "T12:00:00");
+    const now = new Date(); now.setHours(12, 0, 0, 0);
+    const dow = now.getDay();
+    const start = new Date(now); start.setDate(now.getDate() + (dow === 0 ? 1 : dow === 6 ? 2 : 1 - dow));
     return [0, 1, 2, 3, 4].map((i) => { const d = new Date(start); d.setDate(start.getDate() + i); return d; });
   }
 
