@@ -23,6 +23,9 @@
   --accent-ink: #ffffff;
   --price: #8a5a00;
   --veg: #3d7d1e;
+  --soup-bg: #e6f5e4;
+  --vegdish-bg: #fde8ee;
+  --holand: #d1121b;
   --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
   --body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
   color-scheme: light;
@@ -30,13 +33,13 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --bg: #111613; --surface: #1a211d; --ink: #e8ede9; --muted: #9aa8a0;
-    --line: #2c3631; --accent: #4cc48a; --accent-ink: #0d1a13; --price: #f0b84a; --veg: #8fd16a;
+    --line: #2c3631; --accent: #4cc48a; --accent-ink: #0d1a13; --price: #f0b84a; --veg: #8fd16a; --soup-bg: #1f3324; --vegdish-bg: #3a2229; --holand: #ff5a5f;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --bg: #111613; --surface: #1a211d; --ink: #e8ede9; --muted: #9aa8a0;
-  --line: #2c3631; --accent: #4cc48a; --accent-ink: #0d1a13; --price: #f0b84a; --veg: #8fd16a;
+  --line: #2c3631; --accent: #4cc48a; --accent-ink: #0d1a13; --price: #f0b84a; --veg: #8fd16a; --soup-bg: #1f3324; --vegdish-bg: #3a2229; --holand: #ff5a5f;
   color-scheme: dark;
 }
 * { box-sizing: border-box; }
@@ -46,6 +49,20 @@ header { position: sticky; top: 0; z-index: 5; background: var(--bg); border-bot
 h1 { font: 800 1.45rem/1.1 var(--display); margin: 0; letter-spacing: -0.01em; text-wrap: balance; }
 h1 span { color: var(--accent); }
 .meta { font-size: .8rem; color: var(--muted); }
+.topr { display: flex; align-items: center; gap: 10px; }
+.refresh { border: 1px solid var(--accent); background: var(--accent); color: var(--accent-ink); border-radius: 999px; padding: 6px 14px; font: 700 .85rem var(--body); cursor: pointer; white-space: nowrap; }
+.refresh:disabled { opacity: .6; cursor: progress; }
+.status { font-size: .82rem; padding: 7px 10px; border-radius: 10px; background: var(--surface); border: 1px solid var(--line); }
+.status.err { border-color: var(--price); }
+.logo { flex: 0 0 auto; width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center; font: 800 .95rem/1 var(--display); color: #fff; letter-spacing: .02em; }
+.logo { width: 76px; height: 46px; }
+.logo.img { padding: 5px 6px; border: 1px solid var(--line); overflow: hidden; }
+.logo.img img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; display: block; }
+.logo.img { display: flex; align-items: center; justify-content: center; }
+.logo.img img { margin: auto; }
+.logo.img.sm img { max-width: 72%; max-height: 72%; }
+.logo.img.md img { max-width: 88%; max-height: 88%; }
+.hl { display: flex; gap: 10px; align-items: center; min-width: 0; }
 .days { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
 .days button { flex: 1 0 auto; min-width: 58px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 10px; padding: 6px 8px; font: 700 .9rem var(--body); cursor: pointer; display: grid; line-height: 1.15; }
 .days button small { font-weight: 400; color: var(--muted); font-size: .72rem; }
@@ -74,6 +91,10 @@ main { padding: 14px 16px 40px; max-width: 1100px; margin: 0 auto; display: grid
 ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 7px; }
 li { display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; padding-top: 7px; border-top: 1px dashed var(--line); }
 li:first-child { border-top: 0; padding-top: 0; }
+li.soup, li.vegdish { border-top: 0; border-radius: 8px; padding: 6px 8px; margin-top: 1px; }
+li.soup { background: var(--soup-bg); }
+li.vegdish { background: var(--vegdish-bg); }
+.holand { font-weight: 700; color: var(--holand); }
 .cat { grid-column: 1 / -1; font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
 .cat .v { color: var(--veg); margin-left: 6px; }
 .dish { font-size: .93rem; }
@@ -91,8 +112,12 @@ li:first-child { border-top: 0; padding-top: 0; }
 <header>
   <div class="top">
     <h1>Žraso <span>u Waltrovky</span></h1>
-    <div class="meta" id="meta">Načítám…</div>
+    <div class="topr">
+      <div class="meta" id="meta">Načítám…</div>
+      <button type="button" class="refresh" id="refresh">↻ Aktualizovat</button>
+    </div>
   </div>
+  <div class="status" id="status" role="status" hidden></div>
   <nav class="days" id="days" aria-label="Den v týdnu"></nav>
   <div class="filters">
     <button class="chip" id="f-all" aria-pressed="true">Vše</button>
@@ -129,6 +154,16 @@ li:first-child { border-top: 0; padding-top: 0; }
     return s;
   };
   const norm = (s) => s.toLocaleLowerCase("cs").normalize("NFD").replace(/[̀-ͯ]/g, "");
+  // Monogram badge: the page cannot load remote images, so each place gets its initials on a stable colour.
+  const LOGO_COLORS = ["#1f6f4a", "#9a3b2e", "#2f5d8a", "#7a4f9a", "#8a6a12", "#2e7d7a", "#b0472b", "#4a5d23", "#5b4636", "#3b4a8a"];
+  const LOGO_IMG = {"lafresca": "#ffffff", "salty": "#000000", "turnovska": "#000000", "puzzle": "#f7f7f7", "blackroyal": "#393432", "kotelna": "#000000", "nafarkane": "#000000", "bucka": "#514c3a", "majeru": "#f6f6f6", "automat": "#f7f7f7"};
+  function logo(r) {
+    if (LOGO_IMG[r.id]) return '<span class="logo img' + (["turnovska","salty","nafarkane"].includes(r.id) ? " sm" : r.id === "automat" ? " md" : "") + '" style="background:' + LOGO_IMG[r.id] + '"><img src="logos/' + r.id + '.webp" alt="" loading="lazy"></span>';
+    const words = r.name.replace(/[–'’]/g, " ").split(/\s+/).filter((w) => w && /\p{L}/u.test(w));
+    const ini = (words[0] || "?")[0] + (words[1] ? words[1][0] : (words[0] || "")[1] || "");
+    let h = 0; for (const c of r.id) h = (h * 31 + c.charCodeAt(0)) >>> 0;
+    return '<span class="logo" aria-hidden="true" style="background:' + LOGO_COLORS[h % LOGO_COLORS.length] + '">' + esc(ini.toUpperCase()) + "</span>";
+  }
 
   function weekDays() {
     const start = new Date(state.data.weekStart + "T12:00:00");
@@ -194,13 +229,15 @@ li:first-child { border-top: 0; padding-top: 0; }
               const plain = pretty(i.name), idx = norm(plain).indexOf(nq);
               if (idx >= 0) name = esc(plain.slice(0, idx)) + "<mark>" + esc(plain.slice(idx, idx + nq.length)) + "</mark>" + esc(plain.slice(idx + nq.length));
             }
-            return '<li><span class="cat">' + esc(i.cat) + (i.veg ? '<span class="v">🌱</span>' : "") + "</span>" +
-              '<span class="dish">' + name + (i.alg ? ' <span class="alg">(' + esc(i.alg) + ")</span>" : "") + "</span>" +
+            const cls = /^pol[eé]vk/i.test(i.cat) ? "soup" : (i.veg || /bez masa/i.test(i.cat)) ? "vegdish" : "";
+            const hol = /holandsk/.test(norm(i.name)) && /rizek|rizk/.test(norm(i.name));
+            return '<li class="' + cls + '"><span class="cat">' + esc(i.cat) + (i.veg ? '<span class="v">🌱</span>' : "") + "</span>" +
+              '<span class="dish' + (hol ? ' holand' : '') + '">' + name + (i.alg ? ' <span class="alg">(' + esc(i.alg) + ")</span>" : "") + "</span>" +
               '<span class="price">' + (i.price ? i.price + " Kč" : "") + "</span></li>";
           }).join("") + "</ul>";
       return '<article class="card' + (pinned ? " pinned" : "") + (had ? "" : " empty") + '">' +
-        '<div class="head"><div><div class="tag">' + (r.zone === "waltrovka" ? "Waltrovka" : "Okolí") + "</div><h2>" + esc(r.name) + "</h2>" +
-        '<div class="sub"><span>' + esc(r.place) + "</span>" + (r.hours ? "<span>" + esc(r.hours) + "</span>" : "") + "</div></div>" +
+        '<div class="head"><div class="hl">' + logo(r) + '<div><div class="tag">' + (r.zone === "waltrovka" ? "Waltrovka" : "Okolí") + "</div><h2>" + esc(r.name) + "</h2>" +
+        '<div class="sub"><span>' + esc(r.place) + "</span>" + (r.hours ? "<span>" + esc(r.hours) + "</span>" : "") + "</div></div></div>" +
         '<button class="pin" type="button" data-pin="' + r.id + '" aria-pressed="' + pinned + '" aria-label="Připnout ' + esc(r.name) + ' nahoru">' + (pinned ? "★" : "☆") + "</button></div>" +
         body +
         '<div class="foot"><span>' + esc(r.note || "") + '</span><a href="' + esc(r.url) + '">Zdroj ↗</a></div></article>';
@@ -231,23 +268,66 @@ li:first-child { border-top: 0; padding-top: 0; }
     store.set("zraso-pins", state.pins); render();
   });
 
-  fetch("menus.json", { cache: "no-store" })
-    .then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); })
-    .then((data) => {
-      state.data = data;
-      const keys = weekDays().map(iso), today = iso(new Date());
-      // Today if it is in the loaded week; otherwise the first weekday that has any menu.
+  function loadData() {
+    return fetch("menus.json", { cache: "no-store" }).then((r) => { if (!r.ok) throw new Error(r.status); return r.json(); });
+  }
+  function apply(data) {
+    state.data = data;
+    const keys = weekDays().map(iso), today = iso(new Date());
+    // Today if it is in the loaded week; otherwise the first weekday that has any menu.
+    if (!state.day || !keys.includes(state.day)) {
       state.day = keys.includes(today) ? today
         : keys.find((k) => data.restaurants.some((r) => r.days && r.days[k] && r.days[k].length)) || keys[0];
-      const u = new Date(data.updated);
-      $("meta").textContent = "Aktualizováno " + DOW[u.getDay()] + " " + u.getDate() + ". " + (u.getMonth() + 1) + ". " +
-        String(u.getHours()).padStart(2, "0") + ":" + String(u.getMinutes()).padStart(2, "0");
-      renderDays(); render();
-    })
-    .catch(() => {
-      $("meta").textContent = "";
-      $("grid").innerHTML = '<div class="err">Menu se nepodařilo načíst. Zkus stránku obnovit.</div>';
-    });
+    }
+    const u = new Date(data.updated);
+    $("meta").textContent = "Aktualizováno " + DOW[u.getDay()] + " " + u.getDate() + ". " + (u.getMonth() + 1) + ". " +
+      String(u.getHours()).padStart(2, "0") + ":" + String(u.getMinutes()).padStart(2, "0");
+    renderDays(); render();
+  }
+  loadData().then(apply).catch(() => {
+    $("meta").textContent = "";
+    $("grid").innerHTML = '<div class="err">Menu se nepodařilo načíst. Zkus stránku obnovit.</div>';
+  });
+
+  // ---- Refresh button: fires the manual scheduled task through the viewer's Claude connector ----
+  const TASK_ID = "trig_018ma8bUxSUrYwLWU2q3drB6";
+  const SERVER = "Claude Code Remote";
+  const FALLBACK = "Spusť ručně naplánovanou úlohu „Žraso – aktualizovat menu (ručně)“ nebo napiš Claudovi „aktualizuj Žraso“.";
+  let mcp = null;
+  const status = (msg, isErr) => { const s = $("status"); s.hidden = !msg; s.textContent = msg || ""; s.className = "status" + (isErr ? " err" : ""); };
+  if (window.claude && typeof window.claude.use === "function") {
+    window.claude.use("mcp").then((m) => { mcp = m; }).catch(() => { mcp = null; });
+  }
+
+  function waitForUpdate(prev) {
+    const started = Date.now();
+    const tick = () => {
+      loadData().then((d) => {
+        if (d.updated !== prev) { apply(d); status("Hotovo, menu je čerstvé."); $("refresh").disabled = false; setTimeout(() => status(""), 6000); return; }
+        if (Date.now() - started > 12 * 60 * 1000) { status("Aktualizace ještě běží. Obnov stránku za pár minut."); $("refresh").disabled = false; return; }
+        setTimeout(tick, 30000);
+      }).catch(() => setTimeout(tick, 30000));
+    };
+    setTimeout(tick, 45000);
+  }
+
+  $("refresh").addEventListener("click", async () => {
+    const last = store.get("zraso-fired", 0);
+    if (Date.now() - last < 5 * 60 * 1000) { status("Aktualizace už běží (spuštěno před chvílí). Počkej pár minut."); return; }
+    if (!mcp) { status("Tlačítko tady nemá přístup ke Claudovi. " + FALLBACK, true); return; }
+    $("refresh").disabled = true;
+    status("Spouštím aktualizaci…");
+    try {
+      await mcp.callTool(SERVER, "fire_trigger", { trigger_id: TASK_ID });
+      store.set("zraso-fired", Date.now());
+      status("Aktualizace běží, trvá obvykle 3–8 minut. Stránka se obnoví sama.");
+      waitForUpdate(state.data ? state.data.updated : "");
+    } catch (e) {
+      $("refresh").disabled = false;
+      const code = e && e.code ? " (" + e.code + ")" : "";
+      status("Aktualizaci se nepodařilo spustit" + code + ". " + FALLBACK, true);
+    }
+  });
 })();
 </script>
 </body>
