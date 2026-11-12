@@ -7,54 +7,54 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon-192.png" type="image/png">
 <link rel="apple-touch-icon" href="icon-192.png">
-<meta name="theme-color" content="#2e9d68">
+<meta name="theme-color" content="#0b6a8a">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
 <style>
 :root {
   /* Layout: frosted sticky header with day tabs + filters, then soft floating restaurant cards (two columns on wide screens). */
-  --bg: #f6f9f7;
-  --surface: #ffffff;
-  --ink: #1c2620;
-  --muted: #6b7a71;
-  --line: #e3eae5;
-  --accent: #2e9d68;
-  --accent-2: #2fb3a3;
+  --bg: #f7f0e3;
+  --surface: #fffaf1;
+  --ink: #1b2a33;
+  --muted: #66716f;
+  --line: #e6d9c2;
+  --accent: #0b6a8a;
+  --accent-2: #148f93;
   --accent-ink: #ffffff;
-  --accent-soft: #e8f6ee;
-  --price: #b26b00;
-  --price-bg: #fff4df;
-  --veg: #4a9a2a;
-  --soup-bg: #edf8ea;
-  --vegdish-bg: #fff0f4;
-  --holand: #d1121b;
-  --hover: #f3f8f5;
-  --shadow: 0 1px 2px rgba(28, 60, 40, .05), 0 4px 14px rgba(28, 60, 40, .06);
-  --shadow-up: 0 2px 4px rgba(28, 60, 40, .06), 0 12px 28px rgba(28, 60, 40, .12);
-  --header-bg: rgba(246, 249, 247, .82);
+  --accent-soft: #e0eff0;
+  --price: #b04a22;
+  --price-bg: #fbe8d7;
+  --veg: #5a7a1c;
+  --soup-bg: #dcedee;
+  --vegdish-bg: #e8efd2;
+  --holand: #c2271b;
+  --hover: #f3e9d4;
+  --shadow: 0 1px 2px rgba(60, 45, 20, .06), 0 4px 14px rgba(60, 45, 20, .07);
+  --shadow-up: 0 2px 4px rgba(60, 45, 20, .07), 0 12px 28px rgba(11, 60, 80, .14);
+  --header-bg: rgba(247, 240, 227, .84);
   --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
   --body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #121815; --surface: #1b2420; --ink: #e9efeb; --muted: #9db0a5; --line: #2b3832;
-    --accent: #52cf92; --accent-2: #4fd1c1; --accent-ink: #0d1a13; --accent-soft: #1f3a2c;
-    --price: #f3bd55; --price-bg: #3a2f17; --veg: #92d66c; --soup-bg: #1f3426; --vegdish-bg: #3a2530;
-    --holand: #ff5a5f; --hover: #222d28;
+    --bg: #101b21; --surface: #18262e; --ink: #f2e9d8; --muted: #9db0b2; --line: #2a3d47;
+    --accent: #5cc3d8; --accent-2: #3fc2b0; --accent-ink: #072029; --accent-soft: #173a44;
+    --price: #f0a468; --price-bg: #3a2a1a; --veg: #b4d36a; --soup-bg: #17353b; --vegdish-bg: #2a3519;
+    --holand: #ff6b5a; --hover: #20323b;
     --shadow: 0 1px 2px rgba(0,0,0,.3), 0 4px 14px rgba(0,0,0,.25); --shadow-up: 0 2px 4px rgba(0,0,0,.35), 0 12px 28px rgba(0,0,0,.4);
-    --header-bg: rgba(18, 24, 21, .82);
+    --header-bg: rgba(16, 27, 33, .84);
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
-  --bg: #121815; --surface: #1b2420; --ink: #e9efeb; --muted: #9db0a5; --line: #2b3832;
-  --accent: #52cf92; --accent-2: #4fd1c1; --accent-ink: #0d1a13; --accent-soft: #1f3a2c;
-  --price: #f3bd55; --price-bg: #3a2f17; --veg: #92d66c; --soup-bg: #1f3426; --vegdish-bg: #3a2530;
-  --holand: #ff5a5f; --hover: #222d28;
+  --bg: #101b21; --surface: #18262e; --ink: #f2e9d8; --muted: #9db0b2; --line: #2a3d47;
+  --accent: #5cc3d8; --accent-2: #3fc2b0; --accent-ink: #072029; --accent-soft: #173a44;
+  --price: #f0a468; --price-bg: #3a2a1a; --veg: #b4d36a; --soup-bg: #17353b; --vegdish-bg: #2a3519;
+  --holand: #ff6b5a; --hover: #20323b;
   --shadow: 0 1px 2px rgba(0,0,0,.3), 0 4px 14px rgba(0,0,0,.25); --shadow-up: 0 2px 4px rgba(0,0,0,.35), 0 12px 28px rgba(0,0,0,.4);
-  --header-bg: rgba(18, 24, 21, .82);
+  --header-bg: rgba(16, 27, 33, .84);
   color-scheme: dark;
 }
 * { box-sizing: border-box; }
@@ -80,7 +80,7 @@ h1 span { background: linear-gradient(90deg, var(--accent), var(--accent-2)); -w
 .chip[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); font-weight: 700; }
 #f-veg { background: var(--vegdish-bg); border-color: color-mix(in srgb, var(--vegdish-bg) 60%, var(--line)); }
 #f-veg:hover { filter: brightness(.97) saturate(1.2); }
-#f-veg[aria-pressed="true"] { border-color: #e48aa6; color: var(--ink); }
+#f-veg[aria-pressed="true"] { border-color: #9db85a; color: var(--ink); }
 #q { flex: 1 1 140px; min-width: 120px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 999px; padding: 6px 12px; font: .9rem var(--body); }
 #q:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
