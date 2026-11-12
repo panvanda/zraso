@@ -92,8 +92,7 @@ main { padding: 16px 16px 40px; max-width: 1100px; margin: 0 auto; display: grid
 .card { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 12px 14px; display: grid; gap: 8px; box-shadow: var(--shadow); }
 .card::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 3px; border-radius: 16px 16px 0 0; background: linear-gradient(90deg, var(--accent), var(--accent-2)); opacity: 0; }
 .card:hover { box-shadow: var(--shadow-up); border-color: color-mix(in srgb, var(--accent) 35%, var(--line)); }
-.card:hover::before, .card.pinned::before { opacity: 1; }
-.card.pinned { border-color: color-mix(in srgb, var(--accent) 45%, var(--line)); }
+.card:hover::before { opacity: 1; }
 .card.empty { opacity: .72; }
 .card.empty:hover { opacity: 1; }
 
@@ -109,9 +108,6 @@ main { padding: 16px 16px 40px; max-width: 1100px; margin: 0 auto; display: grid
 .logo.img.sm img { max-width: 72%; max-height: 72%; }
 .logo.img.md img { max-width: 88%; max-height: 88%; }
 
-.pin { border: 0; background: none; font-size: 1.3rem; line-height: 1; cursor: pointer; color: var(--muted); padding: 4px 6px; border-radius: 8px; }
-.pin:hover { color: var(--price); background: var(--price-bg); }
-.pin[aria-pressed="true"] { color: var(--price); }
 
 ul { list-style: none; margin: 0 -8px; padding: 0; display: grid; gap: 4px; }
 li { display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; padding: 6px 8px; border-radius: 10px; }
@@ -134,7 +130,7 @@ li.soup:hover, li.vegdish:hover { filter: brightness(.97) saturate(1.15); }
 .err { padding: 16px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
 
 @media (prefers-reduced-motion: no-preference) {
-  .days button, .chip, #q, .pin, li, .foot a { transition: background .18s, border-color .18s, box-shadow .18s, transform .18s, color .18s, filter .18s; }
+  .days button, .chip, #q, li, .foot a { transition: background .18s, border-color .18s, box-shadow .18s, transform .18s, color .18s, filter .18s; }
   .card { transition: transform .22s cubic-bezier(.2,.8,.2,1), box-shadow .22s, border-color .22s, opacity .22s; animation: rise .35s cubic-bezier(.2,.8,.2,1) backwards; }
   .card::before { transition: opacity .22s; }
   .logo { transition: transform .25s cubic-bezier(.2,.8,.2,1); }
@@ -143,7 +139,6 @@ li.soup:hover, li.vegdish:hover { filter: brightness(.97) saturate(1.15); }
   .card:hover { transform: translateY(-3px); }
   .card:hover .logo { transform: scale(1.05) rotate(-1deg); }
   li:hover { transform: translateX(3px); }
-  .pin:hover { transform: scale(1.2) rotate(-8deg); }
   .foot a:hover { transform: translateX(2px); display: inline-block; }
   @keyframes rise { from { transform: translateY(8px); opacity: .55; } to { transform: none; opacity: 1; } }
 }
@@ -209,7 +204,7 @@ li.soup:hover, li.vegdish:hover { filter: brightness(.97) saturate(1.15); }
     get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
     set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
   };
-  const state = { data: null, day: null, zone: "all", veg: false, q: "", pins: store.get("zraso-pins", []), only: null, anim: null };
+  const state = { data: null, day: null, zone: "all", veg: false, q: "", only: null, anim: null };
   const $ = (id) => document.getElementById(id);
   const iso = (d) => d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
@@ -281,15 +276,12 @@ li.soup:hover, li.vegdish:hover { filter: brightness(.97) saturate(1.15); }
       })
       .filter((c) => !(state.veg || nq) || (c.items && c.items.length))
       .sort((a, b) => {
-        const pa = state.pins.includes(a.r.id) ? 0 : 1, pb = state.pins.includes(b.r.id) ? 0 : 1;
-        if (pa !== pb) return pa - pb;
         return (b.had ? 1 : 0) - (a.had ? 1 : 0);
       });
 
     $("grid").classList.toggle("solo", !!state.only);
     if (!cards.length) { $("grid").innerHTML = '<p class="nomenu">Nic neodpovídá filtru.</p>'; return; }
     $("grid").innerHTML = cards.map(({ r, items, had }) => {
-      const pinned = state.pins.includes(r.id);
       const body = !had
         ? '<p class="nomenu">Pro tento den menu zatím nezveřejnili.</p>'
         : "<ul>" + items.map((i) => {
@@ -304,10 +296,10 @@ li.soup:hover, li.vegdish:hover { filter: brightness(.97) saturate(1.15); }
               '<span class="dish' + (hol ? ' holand' : '') + '">' + name + (i.alg ? ' <span class="alg">(' + esc(i.alg) + ")</span>" : "") + "</span>" +
               '<span class="price">' + (i.price ? i.price + " Kč" : "") + "</span></li>";
           }).join("") + "</ul>";
-      return '<article data-id="' + r.id + '" class="card' + (pinned ? " pinned" : "") + (had ? "" : " empty") + (r.id === state.anim ? " noanim" : "") + '">' +
+      return '<article data-id="' + r.id + '" class="card' + (had ? "" : " empty") + (r.id === state.anim ? " noanim" : "") + '">' +
         '<div class="head"><div class="hl">' + logo(r) + '<div><div class="tag">' + (r.zone === "waltrovka" ? "Waltrovka" : "Okolí") + "</div><h2>" + esc(r.name) + "</h2>" +
         '<div class="sub"><span>' + esc(r.place) + "</span>" + (r.hours ? "<span>" + esc(r.hours) + "</span>" : "") + "</div></div></div>" +
-        '<button class="pin" type="button" data-pin="' + r.id + '" aria-pressed="' + pinned + '" aria-label="Připnout ' + esc(r.name) + ' nahoru">' + (pinned ? "★" : "☆") + "</button></div>" +
+        "</div>" +
         body +
         '<div class="foot"><span>' + esc(r.note || "") + '</span><a href="' + esc(r.url) + '">Zdroj ↗</a></div></article>';
     }).join("");
@@ -341,13 +333,7 @@ li.soup:hover, li.vegdish:hover { filter: brightness(.97) saturate(1.15); }
     state.only = target; state.anim = animId; render(); state.anim = null;
     const el = cardEl(animId);
     if (!el) return;
-    // Scroll instantly so the card ends up centred under the sticky header (or back where it was).
-    const headerH = document.querySelector("header").offsetHeight;
-    const r0 = el.getBoundingClientRect();
-    let top;
-    if (target) top = r0.top + scrollY - headerH - Math.max(12, (innerHeight - headerH - r0.height) / 2);
-    else top = r0.top + scrollY - (from ? from.top : headerH + 12);
-    window.scrollTo({ top: Math.max(0, top), behavior: "instant" });
+    // No automatic scrolling: the page stays where it is and the user scrolls.
     const reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduce) return;
     const n = el.getBoundingClientRect();
@@ -365,12 +351,6 @@ li.soup:hover, li.vegdish:hover { filter: brightness(.97) saturate(1.15); }
       el.addEventListener("transitionend", done);
       setTimeout(done, 700);
     }, 20);
-  });
-  $("grid").addEventListener("click", (e) => {
-    const b = e.target.closest("button[data-pin]"); if (!b) return;
-    const id = b.dataset.pin;
-    state.pins = state.pins.includes(id) ? state.pins.filter((x) => x !== id) : state.pins.concat(id);
-    store.set("zraso-pins", state.pins); render();
   });
 
   function loadData() {
