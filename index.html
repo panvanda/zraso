@@ -171,6 +171,15 @@ li.soup:hover, li.vegdish:hover { filter: brightness(.97) saturate(1.15); }
   .pick:hover { transform: translateY(-2px); box-shadow: var(--shadow-up); }
   .pick:active { transform: scale(.96); }
 }
+.card.noanim { animation: none; }
+.grid.solo { grid-template-columns: minmax(0, 720px); justify-content: center; }
+.grid.solo .card { padding: 16px 20px; gap: 10px; box-shadow: var(--shadow-up); border-color: color-mix(in srgb, var(--accent) 40%, var(--line)); }
+.grid.solo .card::before { opacity: 1; }
+.grid.solo .head h2 { font-size: 1.35rem; }
+.grid.solo .logo { width: 92px; height: 56px; }
+.grid.solo .dish { font-size: 1.02rem; }
+.grid.solo .price { font-size: .95rem; }
+.grid.solo .card:hover { transform: none; }
 </style>
 </head>
 <body>
@@ -200,7 +209,7 @@ li.soup:hover, li.vegdish:hover { filter: brightness(.97) saturate(1.15); }
     get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
     set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
   };
-  const state = { data: null, day: null, zone: "all", veg: false, q: "", pins: store.get("zraso-pins", []), only: null };
+  const state = { data: null, day: null, zone: "all", veg: false, q: "", pins: store.get("zraso-pins", []), only: null, anim: null };
   const $ = (id) => document.getElementById(id);
   const iso = (d) => d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
@@ -277,6 +286,7 @@ li.soup:hover, li.vegdish:hover { filter: brightness(.97) saturate(1.15); }
         return (b.had ? 1 : 0) - (a.had ? 1 : 0);
       });
 
+    $("grid").classList.toggle("solo", !!state.only);
     if (!cards.length) { $("grid").innerHTML = '<p class="nomenu">Nic neodpovídá filtru.</p>'; return; }
     $("grid").innerHTML = cards.map(({ r, items, had }) => {
       const pinned = state.pins.includes(r.id);
@@ -294,7 +304,7 @@ li.soup:hover, li.vegdish:hover { filter: brightness(.97) saturate(1.15); }
               '<span class="dish' + (hol ? ' holand' : '') + '">' + name + (i.alg ? ' <span class="alg">(' + esc(i.alg) + ")</span>" : "") + "</span>" +
               '<span class="price">' + (i.price ? i.price + " Kč" : "") + "</span></li>";
           }).join("") + "</ul>";
-      return '<article class="card' + (pinned ? " pinned" : "") + (had ? "" : " empty") + '">' +
+      return '<article data-id="' + r.id + '" class="card' + (pinned ? " pinned" : "") + (had ? "" : " empty") + (r.id === state.anim ? " noanim" : "") + '">' +
         '<div class="head"><div class="hl">' + logo(r) + '<div><div class="tag">' + (r.zone === "waltrovka" ? "Waltrovka" : "Okolí") + "</div><h2>" + esc(r.name) + "</h2>" +
         '<div class="sub"><span>' + esc(r.place) + "</span>" + (r.hours ? "<span>" + esc(r.hours) + "</span>" : "") + "</div></div></div>" +
         '<button class="pin" type="button" data-pin="' + r.id + '" aria-pressed="' + pinned + '" aria-label="Připnout ' + esc(r.name) + ' nahoru">' + (pinned ? "★" : "☆") + "</button></div>" +
@@ -323,9 +333,38 @@ li.soup:hover, li.vegdish:hover { filter: brightness(.97) saturate(1.15); }
   $("picks").addEventListener("click", (e) => {
     const b = e.target.closest("button[data-only]"); if (!b) return;
     const id = b.dataset.only;
-    state.only = !id || state.only === id ? null : id;
-    render();
-    if (state.only) { try { $("grid").scrollIntoView({ behavior: "smooth", block: "start" }); } catch (err) {} }
+    const target = !id || state.only === id ? null : id;
+    const animId = target || state.only;           // card that zooms: the chosen one, or the one we leave
+    const cardEl = (cid) => cid && $("grid").querySelector('.card[data-id="' + cid + '"]');
+    const before = cardEl(animId);
+    const from = before ? before.getBoundingClientRect() : null;
+    state.only = target; state.anim = animId; render(); state.anim = null;
+    const el = cardEl(animId);
+    if (!el) return;
+    // Scroll instantly so the card ends up centred under the sticky header (or back where it was).
+    const headerH = document.querySelector("header").offsetHeight;
+    const r0 = el.getBoundingClientRect();
+    let top;
+    if (target) top = r0.top + scrollY - headerH - Math.max(12, (innerHeight - headerH - r0.height) / 2);
+    else top = r0.top + scrollY - (from ? from.top : headerH + 12);
+    window.scrollTo({ top: Math.max(0, top), behavior: "instant" });
+    const reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) return;
+    const n = el.getBoundingClientRect();
+    const start = from
+      ? "translate(" + (from.left - n.left) + "px," + (from.top - n.top) + "px) scale(" + (from.width / n.width) + ")"
+      : "scale(.9)";
+    el.style.transformOrigin = from ? "top left" : "center top";
+    el.style.transition = "none";
+    el.style.transform = start;
+    el.getBoundingClientRect();
+    setTimeout(() => {
+      el.style.transition = "transform .5s cubic-bezier(.2,.8,.2,1), box-shadow .5s";
+      el.style.transform = "";
+      const done = () => { el.style.transition = el.style.transformOrigin = ""; el.removeEventListener("transitionend", done); };
+      el.addEventListener("transitionend", done);
+      setTimeout(done, 700);
+    }, 20);
   });
   $("grid").addEventListener("click", (e) => {
     const b = e.target.closest("button[data-pin]"); if (!b) return;
