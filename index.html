@@ -124,7 +124,7 @@ li.soup:hover, li.vegdish:hover { filter: brightness(.97) saturate(1.15); }
 .price { align-self: start; font-weight: 700; color: var(--price); background: var(--price-bg); border-radius: 999px; padding: 1px 8px; font-variant-numeric: tabular-nums; white-space: nowrap; text-align: right; font-size: .88rem; }
 .price:empty { display: none; }
 .nomenu { font-size: .88rem; color: var(--muted); font-style: italic; }
-.foot { font-size: .75rem; color: var(--muted); display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.foot { font-size: .75rem; color: var(--muted); display: flex; justify-content: flex-end; }
 .foot a { color: var(--accent); text-decoration: none; font-weight: 700; }
 .foot a:hover { text-decoration: underline; }
 .err { padding: 16px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
@@ -301,7 +301,7 @@ li.soup:hover, li.vegdish:hover { filter: brightness(.97) saturate(1.15); }
         '<div class="sub"><span>' + esc(r.place) + "</span>" + (r.hours ? "<span>" + esc(r.hours) + "</span>" : "") + "</div></div></div>" +
         "</div>" +
         body +
-        '<div class="foot"><span>' + esc(r.note || "") + '</span><a href="' + esc(r.url) + '">Zdroj ↗</a></div></article>';
+        '<div class="foot"><a href="' + esc(r.url) + '">Zdroj ↗</a></div></article>';
     }).join("");
   }
 
