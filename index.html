@@ -144,6 +144,21 @@ li.soup:hover, li.vegdish:hover { filter: brightness(.97) saturate(1.15); }
   .foot a:hover { transform: translateX(2px); display: inline-block; }
   @keyframes rise { from { transform: translateY(8px); opacity: .55; } to { transform: none; opacity: 1; } }
 }
+.picks { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: thin; padding: 2px 2px 8px; margin: 0 -2px; scroll-snap-type: x proximity; }
+.pick { flex: 0 0 auto; width: 92px; display: grid; justify-items: center; gap: 6px; padding: 8px 6px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); color: var(--ink); cursor: pointer; box-shadow: var(--shadow); scroll-snap-align: start; font: inherit; }
+.pick .logo { width: 72px; height: 42px; }
+.pick .pname { font-size: .72rem; font-weight: 700; line-height: 1.15; text-align: center; overflow-wrap: anywhere; }
+.pick:hover { border-color: var(--accent); background: var(--accent-soft); }
+.pick[aria-pressed="true"] { border-color: transparent; background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: var(--accent-ink); }
+.pick.off { opacity: .55; }
+.pick.off:hover, .pick.off[aria-pressed="true"] { opacity: 1; }
+.allicon { background: var(--accent-soft); color: var(--accent); font-size: 1.4rem; border: 1px solid var(--line); }
+.pick[aria-pressed="true"] .allicon { background: rgba(255,255,255,.2); color: var(--accent-ink); border-color: transparent; }
+@media (prefers-reduced-motion: no-preference) {
+  .pick { transition: background .18s, border-color .18s, transform .18s, box-shadow .18s, opacity .18s; }
+  .pick:hover { transform: translateY(-2px); box-shadow: var(--shadow-up); }
+  .pick:active { transform: scale(.96); }
+}
 </style>
 </head>
 <body>
@@ -163,6 +178,7 @@ li.soup:hover, li.vegdish:hover { filter: brightness(.97) saturate(1.15); }
   </div>
 </header>
 <main>
+  <nav class="picks" id="picks" aria-label="Vybrat restauraci"></nav>
   <div class="grid" id="grid"></div>
 </main>
 <script>
@@ -172,7 +188,7 @@ li.soup:hover, li.vegdish:hover { filter: brightness(.97) saturate(1.15); }
     get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
     set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
   };
-  const state = { data: null, day: null, zone: "all", veg: false, q: "", pins: store.get("zraso-pins", []) };
+  const state = { data: null, day: null, zone: "all", veg: false, q: "", pins: store.get("zraso-pins", []), only: null };
   const $ = (id) => document.getElementById(id);
   const iso = (d) => d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
@@ -218,10 +234,20 @@ li.soup:hover, li.vegdish:hover { filter: brightness(.97) saturate(1.15); }
     return list.concat(r.everyday || []);
   }
 
+  function renderPicks() {
+    const btn = (id, label, inner) => '<button type="button" class="pick' + (id === "" ? " all" : "") + '" data-only="' + id + '" aria-pressed="' + ((state.only || "") === id) + '">' + inner + '<span class="pname">' + esc(label) + "</span></button>";
+    $("picks").innerHTML = btn("", "Všechny", '<span class="logo allicon" aria-hidden="true">▦</span>') +
+      state.data.restaurants.map((r) => {
+        const has = !!itemsFor(r, state.day);
+        return btn(r.id, r.name.replace(/ – .*$/, "").replace(/ Waltrovka$/, ""), logo(r)).replace('class="pick"', 'class="pick' + (has ? "" : " off") + '"');
+      }).join("");
+  }
+
   function render() {
+    renderPicks();
     const d = state.data, day = state.day, nq = norm(state.q.trim());
     const cards = d.restaurants
-      .filter((r) => state.zone === "all" || r.zone === state.zone)
+      .filter((r) => state.only ? r.id === state.only : (state.zone === "all" || r.zone === state.zone))
       .map((r) => {
         let items = itemsFor(r, day);
         const had = !!items;
@@ -265,7 +291,7 @@ li.soup:hover, li.vegdish:hover { filter: brightness(.97) saturate(1.15); }
   }
 
   function setZone(z) {
-    state.zone = z;
+    state.zone = z; state.only = null;
     $("f-all").setAttribute("aria-pressed", z === "all");
     $("f-walt").setAttribute("aria-pressed", z === "waltrovka");
     $("f-okoli").setAttribute("aria-pressed", z === "okoli");
@@ -281,6 +307,13 @@ li.soup:hover, li.vegdish:hover { filter: brightness(.97) saturate(1.15); }
   $("f-okoli").onclick = () => setZone("okoli");
   $("f-veg").onclick = () => { state.veg = !state.veg; $("f-veg").setAttribute("aria-pressed", state.veg); render(); };
   $("q").addEventListener("input", (e) => { state.q = e.target.value; render(); });
+  $("picks").addEventListener("click", (e) => {
+    const b = e.target.closest("button[data-only]"); if (!b) return;
+    const id = b.dataset.only;
+    state.only = !id || state.only === id ? null : id;
+    render();
+    if (state.only) { try { $("grid").scrollIntoView({ behavior: "smooth", block: "start" }); } catch (err) {} }
+  });
   $("grid").addEventListener("click", (e) => {
     const b = e.target.closest("button[data-pin]"); if (!b) return;
     const id = b.dataset.pin;
