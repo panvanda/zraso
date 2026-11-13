@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-12T13:05:00+01:00",
+ "updated": "2026-11-13T10:20:00+01:00",
  "weekStart": "2026-11-09",
  "restaurants": [
   {
@@ -13,8 +13,23 @@
    "everyday": [
     {
      "cat": "Wok/Pasta",
-     "name": "ARRABIATTA S PANCETTOU · CARBONARA · RAGU BOLOGNESE · KUŘECÍ SUPREME S HOUBOVÝM RAGU",
+     "name": "ARRABIATTA S PANCETTOU",
+     "alg": "1,3,7"
+    },
+    {
+     "cat": "Wok/Pasta",
+     "name": "CARBONARA",
+     "alg": "1,3,7"
+    },
+    {
+     "cat": "Wok/Pasta",
+     "name": "RAGU BOLOGNESE",
      "alg": "1,3,7,9"
+    },
+    {
+     "cat": "Wok/Pasta",
+     "name": "KUŘECÍ SUPREME S HOUBOVÝM RAGU",
+     "alg": "1,3,7"
     }
    ],
    "days": {
@@ -27,8 +42,7 @@
      {
       "cat": "Polévka B",
       "name": "MINESTRONE SE ZELENINOU A PESTEM, ZAKYSANÁ SMETANA",
-      "alg": "7,9",
-      "veg": true
+      "alg": "7,9"
      },
      {
       "cat": "Bez masa",
@@ -56,8 +70,7 @@
      {
       "cat": "Polévka A",
       "name": "HOUBOVÁ POLÉVKA, KROUPY, HOUBY, TYMIÁN",
-      "alg": "1,9",
-      "veg": true
+      "alg": "1,9"
      },
      {
       "cat": "Polévka B",
@@ -94,8 +107,7 @@
      {
       "cat": "Polévka A",
       "name": "ZELENINOVÝ VÝVAR S KRUPICÍ A VEJCEM, STROUHANÁ ZELENINA",
-      "alg": "3,7,9",
-      "veg": true
+      "alg": "3,7,9"
      },
      {
       "cat": "Polévka B",
@@ -137,8 +149,7 @@
      {
       "cat": "Polévka B",
       "name": "DÝŇOVÝ KRÉM S JABLKY, DÝŇOVÁ SEMÍNKA A OLEJ",
-      "alg": "7,9",
-      "veg": true
+      "alg": "7,9"
      },
      {
       "cat": "Bez masa",
@@ -174,8 +185,7 @@
      },
      {
       "cat": "Polévka B",
-      "name": "KULAJDA S HOUBAMI A BRAMBOREM, VEJCE, KOPR",
-      "veg": true
+      "name": "KULAJDA S HOUBAMI A BRAMBOREM, VEJCE, KOPR"
      },
      {
       "cat": "Bez masa",
@@ -194,7 +204,7 @@
      },
      {
       "cat": "Teplý bufet",
-      "name": "VEPŘOVÁ PANENKA S OMÁČKOU ZE ZELENÉHO PEPŘE",
+      "name": "VEPŘOVÁ PANENKA S OMÁČKOU ZE ZELENÉHO PEP",
       "alg": "7,10"
      }
     ]
@@ -330,8 +340,7 @@
      {
       "cat": "Polévka",
       "name": "Polévka z drcených rajčat se sýrem grana-padano",
-      "price": 79,
-      "veg": true
+      "price": 79
      },
      {
       "cat": "Polévka",
@@ -340,7 +349,7 @@
      },
      {
       "cat": "Hlavní",
-      "name": "150g Pikantní buřtguláš s chlebem od našich pekařů",
+      "name": "150g Pikantní burtguláš s chlebem od našich pekařů",
       "price": 175
      },
      {
@@ -350,7 +359,7 @@
      },
      {
       "cat": "Hlavní",
-      "name": "150g Kuřecí steak s rajčaty zapečený mozzarellou, šťouchané brambory, bazalková omáčka",
+      "name": "150g Kuřecí steak s rajčaty zapečený mozzarelou, šťouchané brambory, bazalková omáčka",
       "price": 215
      },
      {
@@ -473,6 +482,36 @@
       "price": 89,
       "veg": true
      }
+    ],
+    "2026-11-13": [
+     {
+      "cat": "Polévka",
+      "name": "Staročeská kulajda s houbami a čerstvým koprem (malá 45 / velká 65 Kč)",
+      "price": 45,
+      "veg": true
+     },
+     {
+      "cat": "Polévka",
+      "name": "Pikantní zelňačka s klobásou a bramborem (malá 45 / velká 65 Kč)",
+      "price": 45
+     },
+     {
+      "cat": "Speciál",
+      "name": "Bowl s trhaným hovězím v medovo-pepřové omáčce, rýže, edamame, skleněné nudle s výhonky a mrkví, marinované červené zelí, sezam mix, shiro miso dressing",
+      "price": 199
+     },
+     {
+      "cat": "Dezert",
+      "name": "Tiramisu",
+      "price": 89,
+      "veg": true
+     },
+     {
+      "cat": "Dezert",
+      "name": "Švestkový cheesecake se skořicí",
+      "price": 89,
+      "veg": true
+     }
     ]
    }
   },
@@ -551,6 +590,31 @@
       "name": "Pikantní vepřové nudličky se zeleninou, hranolky",
       "price": 175,
       "alg": "1,6,10"
+     },
+     {
+      "cat": "Hlavní",
+      "name": "Pomalu dušené zvěřinové ragú na červeném víně s vaječnými špeclemi",
+      "price": 215,
+      "alg": "1,3,9,12"
+     }
+    ],
+    "2026-11-13": [
+     {
+      "cat": "Polévka",
+      "name": "Hovězí vývar se zeleninou a masem",
+      "price": 53,
+      "alg": "9"
+     },
+     {
+      "cat": "Hlavní",
+      "name": "Zapečené francouzské brambory s uzeným masem",
+      "price": 169,
+      "alg": "3,7,10,12"
+     },
+     {
+      "cat": "Hlavní",
+      "name": "Kuřecí řízečky obalené v křupavé sýrové strouhance, bramborová kaše",
+      "price": 169
      },
      {
       "cat": "Hlavní",
@@ -967,6 +1031,94 @@
       "price": 220,
       "veg": true
      }
+    ],
+    "2026-11-13": [
+     {
+      "cat": "Polévka",
+      "name": "Hovězí vývar s masem a nudlemi",
+      "price": 65
+     },
+     {
+      "cat": "Polévka",
+      "name": "Zelná s klobásou",
+      "price": 65
+     },
+     {
+      "cat": "Menu",
+      "name": "MENU 1 : Hovězí vývar s masem a nudlemi + 150g Cheesburger, hranolky",
+      "price": 240,
+      "alg": "1,3,7"
+     },
+     {
+      "cat": "Menu",
+      "name": "MENU 2 : Hovězí vývar s masem a nudlemi + 150g Segedínský guláš, houskový knedlík",
+      "price": 220
+     },
+     {
+      "cat": "Menu",
+      "name": "MENU 3 : Hovězí vývar s masem a nudlemi + Smažený hermelín, vařený brambor, tat.omáčka",
+      "price": 220
+     },
+     {
+      "cat": "Speciál",
+      "name": "200g Filet z lososa pečený na másle, vařený brambor",
+      "price": 320
+     },
+     {
+      "cat": "Speciál",
+      "name": "200g Kuřecí prsíčko s hříbkovou omáčkou, hranolky",
+      "price": 285
+     },
+     {
+      "cat": "Speciál",
+      "name": "Krémové parmazánové rissoto s gril.kozím sýrem,sušenými rajčaty, cuketou a rukolou",
+      "price": 265,
+      "veg": true
+     },
+     {
+      "cat": "Speciál",
+      "name": "Caesar salát",
+      "price": 265,
+      "alg": "7"
+     },
+     {
+      "cat": "Speciál",
+      "name": "1/4 Konfitovaná husička, houskový, bramborový a karlovarský knedlík, červené zelí",
+      "price": 400
+     },
+     {
+      "cat": "Hlavní",
+      "name": "200g Španělský ptáček, jasmínová rýže",
+      "price": 280
+     },
+     {
+      "cat": "Hlavní",
+      "name": "150g Svíčková na smetaně,houskový knedlík,terč",
+      "price": 260
+     },
+     {
+      "cat": "Hlavní",
+      "name": "150g Vepřová plec na paprice, jasmínová rýže",
+      "price": 195
+     },
+     {
+      "cat": "Hlavní",
+      "name": "150g Smažený květák, vařený brambor, tat.omáčka",
+      "price": 220,
+      "veg": true
+     },
+     {
+      "cat": "Hlavní",
+      "name": "Smažený sýr gouda, vařený brambor, tat.omáčka",
+      "price": 220,
+      "veg": true
+     },
+     {
+      "cat": "Dezert",
+      "name": "Čokoládový dortík s vaječným krémem",
+      "price": 130,
+      "alg": "1,3,5,7,8"
+     }
     ]
    }
   },
@@ -1085,6 +1237,68 @@
       "name": "Smažený sýr (eidam)",
       "price": 100,
       "veg": true
+     }
+    ],
+    "2026-11-13": [
+     {
+      "cat": "Polévka",
+      "name": "Husí kaldoun s nudlemi",
+      "price": 55,
+      "alg": "1,3,5,7,9,10,12"
+     },
+     {
+      "cat": "Polévka",
+      "name": "Česnečka s opečeným chlebem",
+      "price": 50,
+      "alg": "1,3,5,9,10,12"
+     },
+     {
+      "cat": "Menu",
+      "name": "MENU 1 Husí kaldoun s nudlemi + Vepřová plec na pepři , rýže / houskový knedlík/",
+      "price": 196,
+      "alg": "1,3,5,7,9,10,12"
+     },
+     {
+      "cat": "Hlavní",
+      "name": "130g Vepřová plec na pepři , rýže / houskový knedlík/",
+      "price": 168,
+      "alg": "1,3,5,12"
+     },
+     {
+      "cat": "Hlavní",
+      "name": "140g Vepřové výpečky , bramborový knedlík, zelí",
+      "price": 170,
+      "alg": "1,3,5,7,9,10,12"
+     },
+     {
+      "cat": "Hlavní",
+      "name": "180g Vepřová krkovice s bramborem v alobalu",
+      "price": 190,
+      "alg": "1,5,8,9,10,12"
+     },
+     {
+      "cat": "Hlavní",
+      "name": "1/4 Pečená kachna , červené zelí , bramborový a houskový knedlík",
+      "price": 295,
+      "alg": "1,3,5,7,9,10,12"
+     },
+     {
+      "cat": "Hlavní",
+      "name": "150g Smažený kuřecí řízek , vařený brambor",
+      "price": 180,
+      "alg": "1,3,5,7,9,10,12"
+     },
+     {
+      "cat": "Hlavní",
+      "name": "150g Smažený vepřový řízek , domácí bramborový salát",
+      "price": 180,
+      "alg": "1,3,5,7,9,10,12"
+     },
+     {
+      "cat": "Hlavní",
+      "name": "Zeleninový listový salát , kuřecí kousky, dresink, bagetka",
+      "price": 180,
+      "alg": "1,3,5,7,9,10,12"
      }
     ]
    }
